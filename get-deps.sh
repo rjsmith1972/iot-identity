@@ -9,6 +9,7 @@ if ! which govendor >/dev/null;then
 
     if ! which govendor >/dev/null;then
 	    echo Installing govendor
+        echo "current location: $(pwd)"
 	    go get -u github.com/kardianos/govendor
     fi
 fi

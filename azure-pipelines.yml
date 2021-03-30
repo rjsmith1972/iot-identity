@@ -1,8 +1,12 @@
 steps:
 - bash: |
     go version
-    echo $GOPATH
+    echo "GOPATH: $GOPATH"
+    echo "current location: $(pwd)"
     go get -u github.com/kardianos/govendor
+
+    echo "govendor location:"
+    find . -iname kardianos
   displayName: check go version
 
 - bash: |
