@@ -1,6 +1,7 @@
 steps:
 - bash: |
     go version
+    export GOPATH=$(pwd)
     echo "GOPATH: $GOPATH"
     echo "current location: $(pwd)"
     go get -u github.com/kardianos/govendor
