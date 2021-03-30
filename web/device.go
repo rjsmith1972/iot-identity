@@ -22,8 +22,8 @@ package web
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/CanonicalLtd/iot-identity/service"
 	"github.com/gorilla/mux"
+	"github.com/rjsmith1972/iot-identity/service"
 	"github.com/snapcore/snapd/asserts"
 	"io"
 	"log"

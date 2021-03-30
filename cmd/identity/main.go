@@ -20,12 +20,12 @@
 package main
 
 import (
-	"github.com/CanonicalLtd/iot-identity/service/factory"
+	"github.com/rjsmith1972/iot-identity/service/factory"
 	"log"
 
-	"github.com/CanonicalLtd/iot-identity/config"
-	"github.com/CanonicalLtd/iot-identity/service"
-	"github.com/CanonicalLtd/iot-identity/web"
+	"github.com/rjsmith1972/iot-identity/config"
+	"github.com/rjsmith1972/iot-identity/service"
+	"github.com/rjsmith1972/iot-identity/web"
 )
 
 func main() {

@@ -1,0 +1,4 @@
+steps:
+- bash: |
+    go version
+  displayName: check go version

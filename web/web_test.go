@@ -21,13 +21,13 @@ package web
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/CanonicalLtd/iot-identity/datastore/memory"
+	"github.com/rjsmith1972/iot-identity/datastore/memory"
 	"io"
 	"net/http"
 	"net/http/httptest"
 
-	"github.com/CanonicalLtd/iot-identity/domain"
-	"github.com/CanonicalLtd/iot-identity/service"
+	"github.com/rjsmith1972/iot-identity/domain"
+	"github.com/rjsmith1972/iot-identity/service"
 )
 
 type mockIdentity struct {
