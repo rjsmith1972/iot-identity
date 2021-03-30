@@ -5,11 +5,15 @@ steps:
     version: '1.12.1'
 
 - bash: |
+    apt update && apt install tree
+  displayName: install 'tree' for diagnostics
+
+- bash: |
     go version
     # export GOPATH=$(pwd)
     echo "GOPATH: $GOPATH"
 
-    ls -l
+    tree -d
 
     # echo "current location: $(pwd)"
     # # go get -u github.com/kardianos/govendor
@@ -24,6 +28,11 @@ steps:
     command: get
     arguments: '-d -v'
     workingDirectory: $(System.DefaultWorkingDirectory)
+  displayName: get sources for project and dependencies
+
+- bash: |
+    tree -d
+  displayName: see what we've ended up with
 
 # - bash: |
 #     echo "GOPATH: $GOPATH"
