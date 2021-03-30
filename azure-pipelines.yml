@@ -4,10 +4,11 @@ steps:
     export GOPATH=$(pwd)
     echo "GOPATH: $GOPATH"
     echo "current location: $(pwd)"
-    go get -u github.com/kardianos/govendor
+    # go get -u github.com/kardianos/govendor
 
-    echo "govendor location:"
-    find . -iname kardianos
+    # echo "govendor location:"
+    # find . -iname kardianos
+    ./get-deps.sh
   displayName: check go version
 
 - bash: |
