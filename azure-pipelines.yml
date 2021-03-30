@@ -4,9 +4,9 @@ steps:
     # version: '1.13.5'
     version: '1.12.1'
 
-- bash: |
-    apt update && apt install tree
-  displayName: install 'tree' for diagnostics
+# - bash: |
+#     apt update && apt install tree
+#   displayName: install 'tree' for diagnostics
 
 - bash: |
     go version
