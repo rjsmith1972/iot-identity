@@ -3,18 +3,29 @@ steps:
     go version
     export GOPATH=$(pwd)
     echo "GOPATH: $GOPATH"
-    echo "current location: $(pwd)"
-    # go get -u github.com/kardianos/govendor
 
-    # echo "govendor location:"
-    # find . -iname kardianos
-    ./get-deps.sh
+    # echo "current location: $(pwd)"
+    # # go get -u github.com/kardianos/govendor
+
+    # # echo "govendor location:"
+    # # find . -iname kardianos
+    # ./get-deps.sh
   displayName: check go version
 
 - bash: |
-    ./run-checks --static
-  displayName: static code checks
+    go get github.com/rjsmith1972/iot-identity
+    ls -l
+  displayName: go get package
 
 - bash: |
-    ./run-checks --unit
-  displayName: run unit tests  
+    ./get-deps.sh
+  displayName: get dependencies
+  workingDirectory: github.com/rjsmith1972/iot-identity
+
+# - bash: |
+#     ./run-checks --static
+#   displayName: static code checks
+
+# - bash: |
+#     ./run-checks --unit
+#   displayName: run unit tests  
