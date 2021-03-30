@@ -1,8 +1,20 @@
 steps:
+- task: GoTool@0
+  inputs:
+    version: '1.13.5'
+
+- task: Go@0
+  inputs:
+    command: 'get'
+    arguments: '-d'
+    workingDirectory: '$(System.DefaultWorkingDirectory)'
+
 - bash: |
     go version
-    export GOPATH=$(pwd)
+    # export GOPATH=$(pwd)
     echo "GOPATH: $GOPATH"
+
+    ls -l
 
     # echo "current location: $(pwd)"
     # # go get -u github.com/kardianos/govendor
@@ -12,16 +24,16 @@ steps:
     # ./get-deps.sh
   displayName: check go version
 
-- bash: |
-    echo "GOPATH: $GOPATH"
-    go get github.com/rjsmith1972/iot-identity
-    ls -l
-  displayName: go get package
+# - bash: |
+#     echo "GOPATH: $GOPATH"
+#     go get github.com/rjsmith1972/iot-identity
+#     ls -l
+#   displayName: go get package
 
-- bash: |
-    ./get-deps.sh
-  displayName: get dependencies
-  workingDirectory: github.com/rjsmith1972/iot-identity
+# - bash: |
+#     ./get-deps.sh
+#   displayName: get dependencies
+#   workingDirectory: github.com/rjsmith1972/iot-identity
 
 # - bash: |
 #     ./run-checks --static
