@@ -5,23 +5,19 @@ steps:
     version: '1.12.1'
 
 # - bash: |
-#     apt update && apt install tree
-#   displayName: install 'tree' for diagnostics
+#     go version
+#     # export GOPATH=$(pwd)
+#     echo "GOPATH: $GOPATH"
 
-- bash: |
-    go version
-    # export GOPATH=$(pwd)
-    echo "GOPATH: $GOPATH"
+#     tree -d
 
-    tree -d
+#     # echo "current location: $(pwd)"
+#     # # go get -u github.com/kardianos/govendor
 
-    # echo "current location: $(pwd)"
-    # # go get -u github.com/kardianos/govendor
-
-    # # echo "govendor location:"
-    # # find . -iname kardianos
-    # ./get-deps.sh
-  displayName: check go version
+#     # # echo "govendor location:"
+#     # # find . -iname kardianos
+#     # ./get-deps.sh
+#   displayName: check go version
 
 - task: Go@0
   inputs:
@@ -30,9 +26,12 @@ steps:
     workingDirectory: $(System.DefaultWorkingDirectory)
   displayName: get sources for project and dependencies
 
-- bash: |
-    tree -d
-  displayName: see what we've ended up with
+- task: Go@0
+  inputs:
+    command: 'test'
+    arguments: '-v'
+    workingDirectory: $(System.DefaultWorkingDirectory)
+  displayName: run unit tests
 
 # - bash: |
 #     echo "GOPATH: $GOPATH"
@@ -45,9 +44,9 @@ steps:
 #   displayName: get dependencies
 #   workingDirectory: github.com/rjsmith1972/iot-identity
 
-# - bash: |
-#     ./run-checks --static
-#   displayName: static code checks
+- bash: |
+    ./run-checks --static
+  displayName: static code checks
 
 # - bash: |
 #     ./run-checks --unit
