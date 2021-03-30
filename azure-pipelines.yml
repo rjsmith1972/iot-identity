@@ -2,3 +2,11 @@ steps:
 - bash: |
     go version
   displayName: check go version
+
+- bash: |
+    ./run-checks --static
+  displayName: static code checks
+
+- bash: |
+    ./run-checks --unit
+  displayName: run unit tests  
