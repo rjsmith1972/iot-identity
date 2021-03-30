@@ -1,6 +1,8 @@
 steps:
 - bash: |
     go version
+    echo $GOPATH
+    go get -u github.com/kardianos/govendor
   displayName: check go version
 
 - bash: |
