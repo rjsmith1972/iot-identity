@@ -1,13 +1,8 @@
 steps:
 - task: GoTool@0
   inputs:
-    version: '1.13.5'
-
-- task: Go@0
-  inputs:
-    command: 'get'
-    arguments: '-d'
-    workingDirectory: '$(System.DefaultWorkingDirectory)'
+    # version: '1.13.5'
+    version: '1.12.1'
 
 - bash: |
     go version
@@ -23,6 +18,12 @@ steps:
     # # find . -iname kardianos
     # ./get-deps.sh
   displayName: check go version
+
+- task: Go@0
+  inputs:
+    command: get
+    arguments: '-d -v'
+    workingDirectory: $(System.DefaultWorkingDirectory)
 
 # - bash: |
 #     echo "GOPATH: $GOPATH"
