@@ -13,6 +13,7 @@ steps:
   displayName: check go version
 
 - bash: |
+    echo "GOPATH: $GOPATH"
     go get github.com/rjsmith1972/iot-identity
     ls -l
   displayName: go get package
