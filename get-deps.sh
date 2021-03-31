@@ -9,8 +9,6 @@ if ! which govendor >/dev/null;then
 
     if ! which govendor >/dev/null;then
 	    echo Installing govendor
-        echo "current location: $(pwd)"
-        echo "GOPATH: $GOPATH"
 	    go get -u github.com/kardianos/govendor
     fi
 fi
