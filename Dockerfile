@@ -1,7 +1,7 @@
-FROM golang:1.12 as builder1
+FROM golang:1.13 as builder1
 COPY . ./src/github.com/rjsmith1972/iot-identity
 WORKDIR /go/src/github.com/rjsmith1972/iot-identity
-RUN ./get-deps.sh
+# RUN ./get-deps.sh
 RUN CGO_ENABLED=1 GOOS=linux go build -a -o /go/bin/identity -ldflags='-extldflags "-static"' cmd/identity/main.go
 
 # Copy the built applications to the docker image

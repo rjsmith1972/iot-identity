@@ -21,7 +21,9 @@ package web
 
 import (
 	"bytes"
+	"flag"
 	"fmt"
+	"os"
 	"testing"
 
 	"github.com/rjsmith1972/iot-identity/config"
@@ -84,7 +86,15 @@ Azds7xIR91OzXGFMx/PO7ZwflxBRIZw7+iFXEXWzfhzVlrUFDLr8K++g1g563UzY9P86XwGDlS7l
 
 var settings = config.ParseArgs()
 
+func TestMain(m *testing.M) {
+	// call flag.Parse() here if TestMain uses flags
+	flag.Parse()
+	os.Exit(m.Run())
+}
+
 func TestIdentityService_RegisterDevice(t *testing.T) {
+	t.Error("Deliberate sabotage!!!")
+
 	req1 := []byte(`{"orgid":"abc", "brand":"example", "model":"drone-2000", "serial":"DR2000C333"}`)
 	req2 := []byte(``)
 	req3 := []byte(`\u000`)

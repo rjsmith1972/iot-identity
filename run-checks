@@ -151,11 +151,13 @@ if [ ! -z "$UNIT" ]; then
 
     # tests
     echo Running tests from "$PWD"
-    for pkg in $(go list); do
-        go test -i "$pkg"
-        $goctest -v -coverprofile=.coverage/profile.out -covermode="$COVERMODE" "$pkg"
-        append_coverage .coverage/profile.out
-    done
+    #TODO this runs the tests ok, but some of them fail with error "flag provided but not defined: -test.testlogfile"
+    go test -v ./...
+    # for pkg in $(go list -m); do
+    #     go test -i "$pkg"
+    #     $goctest -v -coverprofile=.coverage/profile.out -covermode="$COVERMODE" "$pkg"
+    #     append_coverage .coverage/profile.out
+    # done
 
     # upload to codecov.io if on travis
     if [ "${TRAVIS_BUILD_NUMBER:-}" ]; then
