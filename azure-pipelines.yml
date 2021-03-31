@@ -1,57 +1,3 @@
-# steps:
-# - task: GoTool@0
-#   inputs:
-#     # version: '1.13.5'
-#     version: '1.12.1'
-
-# # - bash: |
-# #     go version
-# #     # export GOPATH=$(pwd)
-# #     echo "GOPATH: $GOPATH"
-
-# #     tree -d
-
-# #     # echo "current location: $(pwd)"
-# #     # # go get -u github.com/kardianos/govendor
-
-# #     # # echo "govendor location:"
-# #     # # find . -iname kardianos
-# #     # ./get-deps.sh
-# #   displayName: check go version
-
-# - task: Go@0
-#   inputs:
-#     command: get
-#     arguments: '-d -v'
-#     workingDirectory: $(System.DefaultWorkingDirectory)
-#   displayName: get sources for project and dependencies
-
-# - task: Go@0
-#   inputs:
-#     command: test
-#     arguments: '-v ./...'
-#     workingDirectory: $(System.DefaultWorkingDirectory)
-#   displayName: run unit tests
-
-# # - bash: |
-# #     echo "GOPATH: $GOPATH"
-# #     go get github.com/rjsmith1972/iot-identity
-# #     ls -l
-# #   displayName: go get package
-
-# # - bash: |
-# #     ./get-deps.sh
-# #   displayName: get dependencies
-# #   workingDirectory: github.com/rjsmith1972/iot-identity
-
-# - bash: |
-#     ./run-checks --static
-#   displayName: static code checks
-
-# # - bash: |
-# #     ./run-checks --unit
-# #   displayName: run unit tests  
-
 variables:
 - group: DockerRegistry
 - name: dockerImage
@@ -61,7 +7,7 @@ steps:
 
 - bash: |
     docker build -t $(dockerRegistry)/$(dockerImage):$(Build.BuildNumber) .
-  displayName: build docker container
+  displayName: build docker image
 
   # NOTE: we run checks AFTER building the container because the tests create root-owned artifacts in the repo which scupper building the container image
 - bash: |
@@ -72,7 +18,7 @@ steps:
     docker login -u $(dockerId) -p $(dockerPassword) $(dockerRegistry)
     docker push $(dockerRegistry)/$(dockerImage):$(Build.BuildNumber)
     docker logout $(dockerRegistry)
-  displayName: push docker container
+  displayName: push docker image
 
 # TODO deploy into unstable environment
 
