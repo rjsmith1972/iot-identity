@@ -1,4 +1,4 @@
-module github.com/CanonicalLtd/iot-identity
+module github.com/rjsmith1972/iot-identity
 
 go 1.12
 

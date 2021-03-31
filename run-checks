@@ -121,13 +121,12 @@ if [ "$STATIC" = 1 ]; then
         misspell -error -i auther,PROCES,PROCESSS,proces,processs,exportfs,mosquitto "$file"
     done
 
-    echo Checking for ineffective assignments
-    if ! which ineffassign >/dev/null; then
-        go get -u github.com/gordonklaus/ineffassign
-    fi
-    # ineffassign knows about ignoring vendor/ \o/
-    ineffassign ./...
-
+    # echo Checking for ineffective assignments
+    # if ! which ineffassign >/dev/null; then
+    #     go get -u github.com/gordonklaus/ineffassign
+    # fi
+    # # ineffassign knows about ignoring vendor/ \o/
+    # ineffassign .
 
     echo Checking for naked returns
     if ! which nakedret >/dev/null; then
@@ -148,7 +147,7 @@ if [ ! -z "$UNIT" ]; then
     echo "mode: $COVERMODE" > .coverage/coverage.out
 
     echo Building
-    go build -v github.com/CanonicalLtd/iot-identity/...
+    go build -v github.com/rjsmith1972/iot-identity/...
 
     # tests
     echo Running tests from "$PWD"

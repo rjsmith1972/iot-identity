@@ -1,0 +1,29 @@
+variables:
+- group: DockerRegistry
+- name: dockerImage
+  value: rjsmith1972/iot-identity
+
+steps:
+
+- bash: |
+    docker build -t $(dockerRegistry)/$(dockerImage):$(Build.BuildNumber) .
+  displayName: build docker image
+
+  # NOTE: we run checks AFTER building the container because the tests create root-owned artifacts in the repo which scupper building the container image
+- bash: |
+    docker run --rm -v $(pwd):/go/src/github.com/rjsmith1972/iot-identity golang:1.12 sh -c 'cd /go/src/github.com/rjsmith1972/iot-identity && ./run-checks'
+  displayName: run static and unit tests
+
+- bash: |
+    docker login -u $(dockerId) -p $(dockerPassword) $(dockerRegistry)
+    docker push $(dockerRegistry)/$(dockerImage):$(Build.BuildNumber)
+    docker logout $(dockerRegistry)
+  displayName: push docker image
+
+# TODO deploy into unstable environment
+
+# TODO fire up (shared?) integration tests
+
+# TODO deploy into stable environment
+
+# TODO deploy into production environment (with manual approval)

@@ -22,7 +22,7 @@ package cert
 import (
 	"testing"
 
-	"github.com/CanonicalLtd/iot-identity/domain"
+	"github.com/rjsmith1972/iot-identity/domain"
 )
 
 func TestCreateClientCert(t *testing.T) {

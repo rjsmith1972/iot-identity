@@ -23,9 +23,9 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/CanonicalLtd/iot-identity/config"
-	"github.com/CanonicalLtd/iot-identity/service"
 	"github.com/gorilla/mux"
+	"github.com/rjsmith1972/iot-identity/config"
+	"github.com/rjsmith1972/iot-identity/service"
 )
 
 // Web is the interface for the web API
