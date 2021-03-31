@@ -52,23 +52,27 @@
 # #     ./run-checks --unit
 # #   displayName: run unit tests  
 
+variables:
+- group: DockerRegistry
+- name: dockerImage
+  value: rjsmith1972/iot-identity
 
 steps:
-- bash: |
-    echo "Build.BuildId: $(Build.BuildId)"
-    echo "Build.BuildNumber: $(Build.BuildNumber)"
-  displayName: check built-in variables
 
+- bash: |
+    docker build -t $(dockerRegistry)/$(dockerImage):$(Build.BuildNumber) .
+  displayName: build docker container
+
+  # NOTE: we run checks AFTER building the container because the tests create root-owned artifacts in the repo which scupper building the container image
 - bash: |
     docker run --rm -v $(pwd):/go/src/github.com/rjsmith1972/iot-identity golang:1.12 sh -c 'cd /go/src/github.com/rjsmith1972/iot-identity && ./run-checks'
   displayName: run static and unit tests
 
 - bash: |
-    docker build -t greggs/iot-identity .
-    # TODO and tag appropriately
-  displayName: containerise
-
-# TODO push into container registry
+    docker login -u $(dockerId) -p $(dockerPassword) $(dockerRegistry)
+    docker push $(dockerRegistry)/$(dockerImage):$(Build.BuildNumber)
+    docker logout $(dockerRegistry)
+  displayName: push docker container
 
 # TODO deploy into unstable environment
 
