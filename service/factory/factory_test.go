@@ -20,7 +20,7 @@
 package factory
 
 import (
-	"github.com/CanonicalLtd/iot-identity/config"
+	"github.com/rjsmith1972/iot-identity/config"
 	"testing"
 )
 

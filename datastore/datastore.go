@@ -20,7 +20,7 @@
 package datastore
 
 import (
-	"github.com/CanonicalLtd/iot-identity/domain"
+	"github.com/rjsmith1972/iot-identity/domain"
 	"github.com/segmentio/ksuid"
 )
 
