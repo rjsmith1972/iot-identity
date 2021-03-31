@@ -1,53 +1,79 @@
+# steps:
+# - task: GoTool@0
+#   inputs:
+#     # version: '1.13.5'
+#     version: '1.12.1'
+
+# # - bash: |
+# #     go version
+# #     # export GOPATH=$(pwd)
+# #     echo "GOPATH: $GOPATH"
+
+# #     tree -d
+
+# #     # echo "current location: $(pwd)"
+# #     # # go get -u github.com/kardianos/govendor
+
+# #     # # echo "govendor location:"
+# #     # # find . -iname kardianos
+# #     # ./get-deps.sh
+# #   displayName: check go version
+
+# - task: Go@0
+#   inputs:
+#     command: get
+#     arguments: '-d -v'
+#     workingDirectory: $(System.DefaultWorkingDirectory)
+#   displayName: get sources for project and dependencies
+
+# - task: Go@0
+#   inputs:
+#     command: test
+#     arguments: '-v ./...'
+#     workingDirectory: $(System.DefaultWorkingDirectory)
+#   displayName: run unit tests
+
+# # - bash: |
+# #     echo "GOPATH: $GOPATH"
+# #     go get github.com/rjsmith1972/iot-identity
+# #     ls -l
+# #   displayName: go get package
+
+# # - bash: |
+# #     ./get-deps.sh
+# #   displayName: get dependencies
+# #   workingDirectory: github.com/rjsmith1972/iot-identity
+
+# - bash: |
+#     ./run-checks --static
+#   displayName: static code checks
+
+# # - bash: |
+# #     ./run-checks --unit
+# #   displayName: run unit tests  
+
+
 steps:
-- task: GoTool@0
-  inputs:
-    # version: '1.13.5'
-    version: '1.12.1'
-
-# - bash: |
-#     go version
-#     # export GOPATH=$(pwd)
-#     echo "GOPATH: $GOPATH"
-
-#     tree -d
-
-#     # echo "current location: $(pwd)"
-#     # # go get -u github.com/kardianos/govendor
-
-#     # # echo "govendor location:"
-#     # # find . -iname kardianos
-#     # ./get-deps.sh
-#   displayName: check go version
-
-- task: Go@0
-  inputs:
-    command: get
-    arguments: '-d -v'
-    workingDirectory: $(System.DefaultWorkingDirectory)
-  displayName: get sources for project and dependencies
-
-- task: Go@0
-  inputs:
-    command: test
-    arguments: '-v ./...'
-    workingDirectory: $(System.DefaultWorkingDirectory)
-  displayName: run unit tests
-
-# - bash: |
-#     echo "GOPATH: $GOPATH"
-#     go get github.com/rjsmith1972/iot-identity
-#     ls -l
-#   displayName: go get package
-
-# - bash: |
-#     ./get-deps.sh
-#   displayName: get dependencies
-#   workingDirectory: github.com/rjsmith1972/iot-identity
+- bash: |
+    echo "Build.BuildId: $(Build.BuildId)"
+    echo "Build.BuildNumber: $(Build.BuildNumber)"
+  displayName: check built-in variables
 
 - bash: |
-    ./run-checks --static
-  displayName: static code checks
+    docker run --rm -v $(pwd):/go/src/github.com/rjsmith1972/iot-identity golang:1.12 sh -c 'cd /go/src/github.com/rjsmith1972/iot-identity && ./run-checks'
+  displayName: run static and unit tests
 
-# - bash: |
-#     ./run-checks --unit
-#   displayName: run unit tests  
+- bash: |
+    docker build -t greggs/iot-identity .
+    # TODO and tag appropriately
+  displayName: containerise
+
+# TODO push into container registry
+
+# TODO deploy into unstable environment
+
+# TODO fire up (shared?) integration tests
+
+# TODO deploy into stable environment
+
+# TODO deploy into production environment (with manual approval)
